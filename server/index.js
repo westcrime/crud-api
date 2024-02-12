@@ -1,8 +1,10 @@
 const http = require("http");
-const UserService = require("./UserService")
+const UserService = require("./UserService");
+require('dotenv').config();
  
 const userService = new UserService();
-userService.createUser('Dima', 20, ['Programming', 'Videogames']);
+const port = process.env.PORT || 4000;
+//userService.createUser('Dima', 20, ['Programming', 'Videogames']);
 const server = http.createServer(function(request, response) {
     if (request.method === 'GET') {
         if (request.url === '/api/users') {
@@ -16,6 +18,9 @@ const server = http.createServer(function(request, response) {
         handleUpdateUserRequest(request, response);
     } else if (request.method === 'DELETE' && /^\/api\/users\/.+$/.test(request.url)) {
         handleDeleteUserRequest(request, response);
+    } else {
+        request.statusCode = 404;
+        request.end('Oops! Wrong address');
     }
 });
 
@@ -76,4 +81,4 @@ function handleDeleteUserRequest(request, response) {
     response.end(JSON.stringify(answer.data)); 
 }
 
-server.listen(4000, function(){ console.log("Server is now working on http://localhost:4000")});
+server.listen(port, function(){ console.log("Server is now working on http://localhost: " + port)});

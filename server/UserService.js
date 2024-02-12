@@ -7,7 +7,7 @@ class UserService {
     }
 
     createUser = function (username, age, hobbies) {
-        if (username === undefined || age === undefined || hobbies === undefined) {
+        if (username === undefined || age === undefined) {
             return {data: 'Ooops! Error: No required data!', statusCode: 400};
         }
         if (username.length === 0 || age <= 0) {
@@ -50,7 +50,7 @@ class UserService {
         if (!this.isValidUUID(id)) {
             return {data: 'Ooops! Error: wrong id format!', statusCode: 400};
         }
-        if (username === undefined || age === undefined || hobbies === undefined) {
+        if (username === undefined || age === undefined) {
             return {data: 'Ooops! Error: No required data!', statusCode: 400};
         }
         if (username.length === 0 || age <= 0) {
